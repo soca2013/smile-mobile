@@ -104,8 +104,7 @@ public class SmileErrorController extends AbstractErrorController {
 //                isIncludeStackTrace(request, MediaType.ALL));
         Map<String, Object> body = getErrorAttributes(request, true);
         HttpStatus status = getStatus(request);
-        result.setSuccess(false);
-        result.setErrorCode((Integer) body.get("code"));
+        result.setStatus((Integer) body.get("code"));
         result.setErrorMessage((String) body.get("errorMessage"));
         logger.error(body);
         return new ResponseEntity<Result>(result, status);

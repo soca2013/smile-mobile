@@ -2,28 +2,18 @@ package com.smile.core.domain;
 
 public class Result<T> {
 
-    private boolean success;
-
-    private Integer errorCode;
+    private Integer status;
 
     private String errorMessage;
 
     private T data;
 
-    public boolean isSuccess() {
-        return success;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    public Integer getErrorCode() {
-        return errorCode;
-    }
-
-    public void setErrorCode(Integer errorCode) {
-        this.errorCode = errorCode;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public String getErrorMessage() {

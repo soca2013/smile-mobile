@@ -1,9 +1,9 @@
 package com.smile.weather.controller;
 
+import com.smile.core.domain.Result;
 import com.smile.sharding.page.Pagination;
 import com.smile.weather.domain.Device;
 import com.smile.weather.domain.DeviceRecord;
-import com.smile.weather.domain.Result;
 import com.smile.weather.dto.DeviceRecordDTO;
 import com.smile.weather.service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
