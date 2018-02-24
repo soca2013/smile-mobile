@@ -28,8 +28,16 @@ public class PoetryUserController {
     }
 
     @RequestMapping(value = "/upload", produces = "application/json")
-    public Result<PoetryUser> upload(@RequestBody  PoetryUser poetryUser) throws BussinessException {
+    public Result upload(@RequestBody PoetryUser poetryUser) throws BussinessException {
         poetryService.addPoetryUser(poetryUser);
+        Result result = new Result();
+        result.setStatus(0);
+        return result;
+    }
+
+    @RequestMapping(value = "/rank", produces = "application/json")
+    public Result<PoetryUser> rank(@RequestBody PoetryUser poetryUser) throws BussinessException {
+        poetryService.updatePoetryUserForRank(poetryUser);
         Result<PoetryUser> result = new Result<PoetryUser>();
         result.setStatus(0);
         return result;

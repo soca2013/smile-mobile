@@ -37,26 +37,26 @@ public class LoginController {
     ) {
         Result<Map<String, String>> result = new Result<Map<String, String>>();
         if (StringUtils.isEmpty(username)) {
-            result.setSuccess(false);
+            result.setStatus(-1);
             result.setErrorMessage("please input username.");
         }
 
         if (StringUtils.isEmpty(password)) {
-            result.setSuccess(false);
+            result.setStatus(-1);
             result.setErrorMessage("please input password.");
         }
         SysUser sysUser = userService.selectByUserNameForPassword(username);
         if (sysUser != null && sysUser.getPassword().equals(hash(password, username + sysUser.getSalt()))) {
-            result.setSuccess(true);
+            result.setStatus(-1);
             Map<String, String> data = new HashMap<String, String>();
             result.setData(data);
             data.put("sid", UUID.randomUUID().toString());
             LocalCache.set(data.get("sid"), sysUser);
         } else if (sysUser == null) {
-            result.setSuccess(false);
+            result.setStatus(-1);
             result.setErrorMessage("user is not exist.");
         } else {
-            result.setSuccess(false);
+            result.setStatus(-1);
             result.setErrorMessage("user or password is error.");
         }
         return result;
@@ -69,11 +69,11 @@ public class LoginController {
     ) {
         Result<Map<String, String>> result = new Result<Map<String, String>>();
         if (code == 500) {
-            result.setSuccess(false);
+            result.setStatus(-1);
             result.setErrorMessage("user is not login.");
             return result;
         } else {
-            result.setSuccess(false);
+            result.setStatus(-1);
             result.setErrorMessage("please input username.");
         }
         return result;
@@ -84,7 +84,7 @@ public class LoginController {
     @ResponseBody
     public Result<Map> logout(@Param("sid") String sid) {
         Result<Map> result = new Result<Map>();
-        result.setSuccess(true);
+        result.setStatus(-1);
         LocalCache.remove(sid);
         return result;
     }

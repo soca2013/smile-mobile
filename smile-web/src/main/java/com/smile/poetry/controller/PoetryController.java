@@ -4,6 +4,7 @@ import com.smile.core.domain.Result;
 import com.smile.core.exceptions.BussinessException;
 import com.smile.poetry.domain.Poetry;
 import com.smile.poetry.domain.ReadPoetry;
+import com.smile.poetry.dto.PoetryHomeDTO;
 import com.smile.poetry.service.PoetryService;
 import com.smile.sharding.page.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
@@ -25,21 +27,15 @@ public class PoetryController {
     private PoetryService poetryService;
 
     @RequestMapping(value = "/getInfo", produces = "application/json")
-    public Result<Poetry> getInfo(@RequestParam(value = "userId", required = false) Long userId,@RequestParam(value = "poetryId", required = false) Long poetryId) throws BussinessException {
-        Poetry poetry = poetryService.findPoetryById(poetryId);
-        Result<Poetry> result = new Result<Poetry>();
+    public Result<PoetryHomeDTO> getInfo(@RequestParam(value = "userId", required = false) Long userId,@RequestParam(value = "poetryId", required = false) Long poetryId) throws BussinessException, InvocationTargetException, IllegalAccessException {
+        PoetryHomeDTO poetry = poetryService.findPoetryById(userId,poetryId);
+        Result<PoetryHomeDTO> result = new Result<PoetryHomeDTO>();
         result.setStatus(0);
         result.setData(poetry);
         return result;
     }
 
-    @RequestMapping(value = "/collection", produces = "application/json")
-    public Result collection( @RequestParam(value = "userId") Long userId,@RequestParam(value = "poetryId", required = false) Long poetryId) {
 
-        Result<List<Poetry>> result = new Result<List<Poetry>>();
-        result.setStatus(0);
-        return result;
-    }
 
 
     @RequestMapping(value = "/history", produces = "application/json")
